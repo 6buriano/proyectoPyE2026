@@ -13,7 +13,7 @@ convertirAMinutos <- function(input)
 
 formatoHoraMinutos <- function(minutos)
 {
-  #devuelve los datos (solo datos en mitutos de la funcion de arriba) en formato HH:MM
+  #convierte datos (solo los creados por la funcion de arriba) a formato HH:MM
 
   minutos_redondeados <- round(minutos)
   horas <- minutos_redondeados %/% 60
