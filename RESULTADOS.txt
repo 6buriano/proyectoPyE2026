@@ -1,0 +1,374 @@
+========================================================================
+PROYECTO FINAL DE PROBABILIDAD Y ESTADISTICA - PyE 2026
+Uso de estacionamientos en las calles de San Jose
+========================================================================
+R 4.6.1 | 2026-11-09 15:42:10
+Se usa el archivo existente: datos/datos.csv
+Registros: 10000 | usuarios distintos: 1200 | dias habiles: 20
+
+Supuestos declarados (R/parametros.r):
+  Semilla .......................... 2026 
+  Tarifa por unidad de 30 minutos .. $ 25,00 
+  Corte de turno ................... 13:00 (manana = antes de esa hora)
+  Muestreo sistematico ............. uno de cada 10 
+  Nivel de confianza ............... 95% 
+
+========================================================================
+PARTE 1 - ESTADISTICA DESCRIPTIVA (consignas 1 a 5) 
+========================================================================
+
+--- Consigna 1: valor promedio de las horas solicitadas de uso
+Promedio de horas canceladas ....... 2,81 unidades de 30 min
+Equivalente en horas ............... 1,40 horas
+Mediana ............................ 2,00 unidades
+Desvio estandar .................... 1,68 unidades
+
+Distribucion de las horas canceladas (1 unidad = 30 minutos):
+ horas_canceladas horas registros proporcion acumulada
+                1 0,500     2.729      0,273     0,273
+                2 1,000     2.434      0,243     0,516
+                3 1,500     1.783      0,178     0,695
+                4 2,000     1.319      0,132     0,827
+                5 2,500       938      0,094     0,920
+                6 3,000       507      0,051     0,971
+                7 3,500       196      0,020     0,991
+                8 4,000        94      0,009     1,000
+
+Lectura: cada uso solicita en promedio 2,81 unidades, o sea 1,40 horas pagadas por adelantado.
+La mediana (2,00 unidades) es menor que el promedio: unos pocos usos muy largos
+estiran la media hacia arriba.
+Si se suma la extension de hora (consigna 3), el uso completo promedia 4,49 unidades = 2,24 horas.
+
+--- Consigna 2: promedio de la hora de inicio del uso
+Hora de inicio promedio ............13:00 (779,6 minutos desde las 00:00)
+Hora de inicio mediana ............. 13:00 
+Desvio estandar ....................137,8 minutos (2,30 horas)
+Primer y ultimo inicio observados .. 09:00 y 16:59 
+
+Por que se convierte a minutos:
+  el promedio de la hora tal cual seria 12,798, que no es una hora valida
+  (la parte decimal serian 80 minutos). En minutos da 779,6 -> 13:00.
+
+Registros por hora de inicio:
+ hora registros proporcion
+    9     1.229      0,123
+   10     1.233      0,123
+   11     1.264      0,126
+   12     1.258      0,126
+   13     1.253      0,125
+   14     1.290      0,129
+   15     1.255      0,126
+   16     1.218      0,122
+
+--- Consigna 3: extensiones, multados y montos de las multas
+Extension promedio ................. 1,68 unidades de 30 min = 0,84 horas
+Usos multados ...................... 3562 de 10000 ( 35,62% )
+Monto medio entre los multados ..... $ 159,63 
+Monto medio por registro (global) ..$ 56,86  <- incluye los ceros
+Recaudacion total por multas ....... $ 568.600 
+
+Distribucion del valor de la multa:
+ valor_multa registros proporcion
+           0     6.438     0,6438
+         100     1.756     0,1756
+         200     1.488     0,1488
+         300       318     0,0318
+
+Lectura: la multa promedio es $ 159,63 entre los multados, pero como
+solo el 35,62% de los usos termina multado, el aporte medio por registro es $ 56,86.
+
+--- Consigna 4: usuarios promedio por semana y por dia de la semana
+USOS (registros) promedio por dia ... 500,00 
+USOS por semana ..................... 2.500,00 
+USUARIOS distintos promedio por dia . 408,90 
+USUARIOS distintos por semana ....... 1.048,75  (promedio de las 4 semanas)
+Usuarios distintos en todo el mes ... 1200 
+Usos por usuario en el mes .......... 8,33 
+
+Por semana:
+ semana registros usuarios_distintos usos_por_dia usuarios_por_dia
+      1     2.462              1.050       492,40           403,80
+      2     2.573              1.062       514,60           418,20
+      3     2.493              1.040       498,60           407,20
+      4     2.472              1.043       494,40           406,40
+
+Por dia de la semana (promedio por dia concreto):
+ dia_semana dias registros usos_por_dia usuarios_por_dia
+      Lunes    4     1.991       497,75           401,50
+     Martes    4     2.063       515,75           418,75
+  Miercoles    4     1.995       498,75           411,50
+     Jueves    4     1.987       496,75           409,50
+    Viernes    4     1.964       491,00           403,25
+
+Lectura: hay 500,00 usos por dia pero solo 408,90 usuarios distintos por dia,
+porque cada usuario estaciona 8,33 veces en el mes.
+En la semana pasan 1.048,75 usuarios distintos, menos que la suma de
+los distintos de cada dia (2.044,50): el mismo usuario vuelve.
+
+--- Consigna 5: discriminado por dia de la semana y por turno (manana/tarde)
+Por dia de la semana:
+ dia_semana registros canceladas_u extension_u prop_multados monto_medio_multa hora_inicio_media
+      Lunes     1.991        2,849       1,678         0,372            58,262             12:57
+     Martes     2.063        2,837       1,696         0,351            57,247             13:02
+  Miercoles     1.995        2,753       1,678         0,352            56,742             12:59
+     Jueves     1.987        2,832       1,699         0,353            55,662             13:01
+    Viernes     1.964        2,766       1,640         0,353            56,365             12:58
+
+Por turno (manana = inicio antes de las 13:00):
+  turno registros proporcion canceladas_u extension_u prop_multados monto_medio_multa hora_inicio_media
+ Manana     4.984      0,498        2,810       1,696         0,359            57,725             11:00
+  Tarde     5.016      0,502        2,806       1,660         0,353            56,001             14:58
+
+Cruce turno x dia de la semana:
+  turno dia_semana registros canceladas_u extension_u prop_multados
+ Manana      Lunes     1.012        2,843       1,688         0,373
+ Manana     Martes     1.028        2,843       1,709         0,352
+ Manana  Miercoles     1.009        2,715       1,683         0,366
+ Manana     Jueves       956        2,863       1,717         0,361
+ Manana    Viernes       979        2,788       1,685         0,345
+  Tarde      Lunes       979        2,856       1,668         0,371
+  Tarde     Martes     1.035        2,830       1,683         0,351
+  Tarde  Miercoles       986        2,793       1,672         0,339
+  Tarde     Jueves     1.031        2,803       1,682         0,345
+  Tarde    Viernes       985        2,745       1,595         0,360
+
+Lectura: el reparto entre manana y tarde es parejo (49,84% y 50,16%),
+y la proporcion de multados casi no cambia entre dias (35,14% a 37,17%): no hay un dia especialmente problematico.
+
+========================================================================
+PARTE 2 - INFERENCIA: MUESTREO SISTEMATICO E INTERVALOS DE CONFIANZA 
+========================================================================
+
+--- Consigna 6: muestreo sistematico uno de cada 10 y su intervalo de confianza
+Poblacion (los 10.000 registros): 3.562 multados de 10.000 = 35,62%
+Muestreo sistematico: uno de cada 10 | arranque aleatorio: 9 | tamano de la muestra: 1000 
+Fraccion de muestreo n/N: 10,00% 
+En la muestra: 365 multados de 1000 = 36,50%
+
+Intervalos de confianza al 95% para la proporcion de multados:
+                                   metodo p_gorro lim_inf lim_sup ancho_pp contiene_poblacion
+                                     Wald  0,3650  0,3352  0,3948   5,9678               TRUE
+ Wald con correccion por poblacion finita  0,3650  0,3367  0,3933   5,6618               TRUE
+                                   Wilson  0,3650  0,3357  0,3953   5,9572               TRUE
+
+Comparacion con la proporcion poblacional (35,62%):
+ Wald: el intervalo CONTIENE el valor poblacional
+ Wald con correccion por poblacion finita: el intervalo CONTIENE el valor poblacional
+ Wilson: el intervalo CONTIENE el valor poblacional
+
+Factor de correccion por poblacion finita: sqrt((N-n)/(N-1)) = 0,9487 
+Como n/N = 10,00% es mayor que el 5%, corresponde aplicarlo: el intervalo se angosta 5,1 %.
+
+--- Consigna 7: intervalo de confianza al 95% y si representa el total de los datos
+a) Con la muestra sistematica (n = 1000 ):
+   p_gorro = 36,50% | IC 95%: 33,52% a 39,48% | ancho = 5,97 puntos porcentuales
+b) Con los 10000 registros (muestra = poblacion):
+   p_gorro = 35,62% | IC 95%: 34,68% a 36,56% | ancho = 1,88 puntos porcentuales
+
+c) Comparacion:
+   El intervalo de la muestra sistematica es 3,18 veces mas ancho que el de la poblacion completa.
+   La teoria predice sqrt(n_poblacion/n_muestra) = sqrt(10000/1000) = 3,16, que coincide.
+
+Veredicto: la muestra sistematica SI representa el total de los datos,
+porque su intervalo al 95% (33,52% a 39,48%) contiene la proporcion poblacional (35,62%).
+El intervalo con los 10.000 registros es mas angosto simplemente porque el error estandar
+de una proporcion decrece con sqrt(n): mas datos, menos incertidumbre.
+
+========================================================================
+PARTE 3 - PREGUNTAS DE DECISION 
+========================================================================
+
+--- Pregunta 1: ¿conviene ofrecer planes online que inicien a las 10:00?
+Usos que empiezan antes de las 10:00 ... 1229 ( 12,29% )
+Usos que empiezan a las 10:00 o despues 8771 ( 87,71% )
+IC 95% para la proporcion que empieza antes de las 10:00: 11,65% a 12,93% 
+Usos perdidos si el plan fuera EXCLUSIVO para despues de las 10:00:1229 (12,29% de la recaudacion potencial)
+
+Como el 87,71% de los usos empieza a las 10:00 o despues,
+el plan es utilizable por la gran mayoria de los clientes. Conviene ofrecerlo,
+pero como complemento del estacionamiento presencial y no como reemplazo:
+los 1229 usos que empiezan antes de las 10:00 necesitan otra via de pago.
+
+--- Pregunta 2: plan de 5 unidades por el precio de 4
+Usos con 5 unidades o mas ............ 44,60%  (los que aprovechan el plan)
+Recaudacion actual (todas las unidades) $ 1.690.125 
+Recaudacion con el plan .............. $ 1.575.975 
+Recaudacion que se deja de cobrar ....$ 114.150 (6,75%)
+Unidades regaladas en el mes ......... 4566 
+Recaudacion media por uso ............ $ 112,15 -> $ 100,74 
+
+Ventajas:
+  - Incentiva estadias mas largas: el cliente que iba a comprar 4 unidades
+    tiene un motivo para comprar 5 (paga lo mismo).
+  - Es un beneficio facil de comunicar y de auditar (una regla simple).
+  - El costo es acotado y predecible: una unidad por cada cinco.
+Desventajas:
+  - Se resigna el 6,75% de la recaudacion por unidades.
+  - El usuario que ya compraba 5 unidades paga menos sin cambiar su conducta:
+    parte del descuento es una transferencia, no un incentivo.
+  - Complica la liquidacion de las extensiones, que se cobran despues.
+
+--- Preguntas 3 y 4: plan de 4 unidades, 4 dias por semana, con el 5to dia exonerado
+Parejas usuario-semana analizadas: 4195 
+Dias por semana que usa el usuario promedio: 1,95
+Parejas que usan 4 dias o mas en la semana: 228 (5,44%)
+
+Resultado comparado de las dos variantes del plan:
+            variante usuarios_semana beneficiarios prop_beneficiarios unidades_exoneradas monto_exonerado
+ 4 dias cualesquiera           4.195            14             0,0033             44,0000      1.100,0000
+ 4 dias consecutivos           4.195             6             0,0014             22,0000        550,0000
+ monto_sobre_recaudacion
+                  0,0007
+                  0,0003
+
+Pregunta 3 - 4 dias cualesquiera:
+  Cumplen el patron 14 parejas usuario-semana (0,33%).
+  Se exoneran 44 unidades = $ 1.100 (0,07% de la recaudacion).
+
+Pregunta 4 - 4 dias consecutivos:
+  Cumplen el patron 6 parejas usuario-semana (0,14%).
+  Se exoneran 22 unidades = $ 550 (0,03% de la recaudacion).
+
+Diferencia entre las dos variantes:
+  La variante de dias consecutivos es MAS restrictiva: exige que los 4 dias
+  con al menos 4 unidades sean un bloque de lunes a jueves o de martes a
+  viernes, mientras que la otra acepta cualquier combinacion de 4 dias de 5.
+  Por eso tiene menos beneficiarios (6 contra 14) y cuesta menos ($ 550,00 contra $ 1.100,00).
+
+Ventajas de las dos variantes:
+  - Fideliza al usuario frecuente, que es el que mas recaudacion aporta.
+  - El costo es muy bajo respecto de la recaudacion total.
+  - Exige un compromiso de uso, asi que se parece a un abono.
+Desventajas:
+  - Solo beneficia a una minoria; el resto de los usuarios no percibe la mejora.
+  - Es dificil de explicar y de liquidar (hay que agrupar por usuario y semana).
+  - Con la variante de dias consecutivos, un feriado o una ausencia rompe el patron
+    y el usuario pierde el beneficio, lo que genera reclamos.
+
+--- Pregunta 5: ¿el uso por dia sigue una distribucion normal?
+Totales diarios (n = 20 dias):
+ dia registros unidades recaudacion dia_semana
+   1       475    2.181      80.225          1
+   2       508    2.315      87.375          2
+   3       501    2.259      87.975          3
+   4       510    2.316      86.700          4
+   5       468    2.038      77.850          5
+   6       504    2.275      87.375          1
+   7       527    2.360      90.500          2
+   8       503    2.221      83.225          3
+   9       508    2.297      85.825          4
+  10       531    2.256      86.200          5
+  11       485    2.226      87.150          1
+  12       513    2.293      84.925          2
+  13       519    2.243      86.175          3
+  14       479    2.132      79.400          4
+  15       497    2.201      82.025          5
+  16       527    2.332      86.600          1
+  17       515    2.383      89.075          2
+  18       472    2.117      76.825          3
+  19       490    2.257      83.725          4
+  20       468    2.159      80.975          5
+
+Prueba de Shapiro-Wilk (H0: los datos provienen de una distribucion normal)
+  Registros por dia ....... W = 0,9425  p-valor = 0,2670 
+  Unidades por dia ........ W = 0,9728  p-valor = 0,8121 
+  Recaudacion por dia ..... W = 0,9391  p-valor = 0,2305 
+
+Con alfa = 0.05 :
+  registros: NO se rechaza la normalidad (es compatible con una normal)
+  unidades: NO se rechaza la normalidad (es compatible con una normal)
+  recaudacion: NO se rechaza la normalidad (es compatible con una normal)
+
+Ojo con el nivel de analisis: el registro individual (unidades por uso) es una
+variable discreta que toma pocos valores, asi que no puede ser normal. Lo que se
+testea es el total diario, que se aproxima a una normal por el teorema central
+del limite (suma de muchos usos independientes).
+
+Grafico guardado en figuras/normalidad_totales_diarios.png
+
+--- Pregunta 6: proporcion de autos multados sobre el total de usuarios
+a) Sobre los USOS (cada vez que un auto se estaciono):
+              ambito registros multados prop_usos li_usos ls_usos
+   Total del archivo    10.000    3.562    0,3562  0,3468  0,3656
+ Mensual (4 semanas)    10.000    3.562    0,3562  0,3468  0,3656
+            Semana 1     2.462      892    0,3623  0,3433  0,3813
+            Semana 2     2.573      919    0,3572  0,3387  0,3757
+            Semana 3     2.493      891    0,3574  0,3386  0,3762
+            Semana 4     2.472      860    0,3479  0,3291  0,3667
+               Lunes     1.991      740    0,3717  0,3504  0,3929
+              Martes     2.063      725    0,3514  0,3308  0,3720
+           Miercoles     1.995      703    0,3524  0,3314  0,3733
+              Jueves     1.987      701    0,3528  0,3318  0,3738
+             Viernes     1.964      693    0,3529  0,3317  0,3740
+
+b) Sobre los USUARIOS distintos (autos que se estacionaron al menos una vez):
+              ambito usuarios usuarios_multados prop_usuarios li_usuarios ls_usuarios
+   Total del archivo    1.200             1.142        0,9517      0,9395      0,9638
+ Mensual (4 semanas)    1.200             1.142        0,9517      0,9395      0,9638
+            Semana 1    1.050               631        0,6010      0,5713      0,6306
+            Semana 2    1.062               651        0,6130      0,5837      0,6423
+            Semana 3    1.040               632        0,6077      0,5780      0,6374
+            Semana 4    1.043               611        0,5858      0,5559      0,6157
+               Lunes      971               549        0,5654      0,5342      0,5966
+              Martes      998               561        0,5621      0,5313      0,5929
+           Miercoles      961               530        0,5515      0,5201      0,5830
+              Jueves      997               544        0,5456      0,5147      0,5765
+             Viernes      972               527        0,5422      0,5109      0,5735
+
+Nota 1: el ambito 'mensual' coincide con el total porque el archivo ES el mes
+(las 4 semanas). Se informa igual para completar lo que pide la letra.
+Nota 2: estos intervalos no llevan la correccion por poblacion finita. Si se
+aplicara, se angostarian alrededor de un 5% (el factor es 0,9487).
+
+Lectura: sobre los usos, la proporcion de multados ronda el 35,62% en todos los ambitos.
+Sobre los usuarios distintos es mucho mas alta (95,17%) porque un auto que se
+estaciona varias veces por semana tiene mas oportunidades de ser multado: la
+probabilidad de no ser multado nunca en el mes es (1 - 0,356)^8,3 = 2,55%.
+
+--- Pregunta 7: intervalos de recaudacion por concepto (90%, 95% y 99%)
+Recaudacion observada del mes, por concepto:
+    concepto media_por_registro total_observado
+  Canceladas              70,19      701.950,00
+ Extensiones              41,96      419.575,00
+      Multas              56,86      568.600,00
+       Total             169,01    1.690.125,00
+
+Intervalos de confianza para el total del mes (pesos):
+    concepto confianza total_observado media_por_registro   lim_inf   lim_sup  ancho
+  Canceladas       90%         701.950                 70   695.056   708.844 13.788
+  Canceladas       95%         701.950                 70   693.735   710.165 16.430
+  Canceladas       99%         701.950                 70   691.153   712.747 21.595
+ Extensiones       90%         419.575                 42   415.991   423.159  7.169
+ Extensiones       95%         419.575                 42   415.304   423.846  8.543
+ Extensiones       99%         419.575                 42   413.961   425.189 11.228
+      Multas       90%         568.600                 57   554.509   582.691 28.182
+      Multas       95%         568.600                 57   551.809   585.391 33.582
+      Multas       99%         568.600                 57   546.531   590.669 44.138
+       Total       90%       1.690.125                169 1.674.128 1.706.122 31.994
+       Total       95%       1.690.125                169 1.671.063 1.709.187 38.124
+       Total       99%       1.690.125                169 1.665.071 1.715.179 50.107
+
+Participacion de cada concepto en la recaudacion total:
+ Canceladas: $ 701.950,00 (41,53%)
+ Extensiones: $ 419.575,00 (24,83%)
+ Multas: $ 568.600,00 (33,64%)
+  Total   : $ 1.690.125
+
+Como se calcula: el total poblacional se estima como N x (media +/- z * EE),
+con N = 10000 registros. Al 90% z = 1,645; al 95% z = 1,96; al 99% z = 2,576.
+Cuanto mayor es la confianza, mas ancho es el intervalo: se gana seguridad y se
+pierde precision.
+
+Interpretacion: como el archivo ES la poblacion del mes, el total observado es un
+dato, no una estimacion. El intervalo describe la recaudacion esperada si el
+proceso que genera los usos se repitiera, con la misma variabilidad.
+
+========================================================================
+PARTE 4 - GENERACION DEL INFORME 
+========================================================================
+Informe escrito en informe/Informe_Proyecto_Final.md ( 353 lineas )
+Informe convertido a Word: informe/Informe_Proyecto_Final.docx 
+
+========================================================================
+FIN. Resultados en RESULTADOS.txt e informe en informe/
+========================================================================

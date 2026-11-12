@@ -1,4 +1,10 @@
+# Archivos propios de RStudio y del entorno de R
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+# Salidas que se regeneran al correr R/main.r
+# (datos/datos.csv, RESULTADOS.txt, figuras/ e informe/ SI se versionan:
+#  son parte de la entrega y dejan el proyecto listo para revisar)
+*.log
