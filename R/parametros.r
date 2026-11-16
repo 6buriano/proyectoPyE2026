@@ -20,6 +20,16 @@ N_SEMANAS   <- 4       # 4 semanas de lunes a viernes = 20 dias habiles
 
 # --- Supuestos economicos y operativos -------------------------------
 TARIFA_UNIDAD   <- 25   # $ por unidad de 30 minutos (la letra no la fija)
+
+# --- Franjas horarias (hay DOS, no confundirlas) ---------------------
+# (1) Franja de MUESTREO: la ventana del dia en la que ocurren los
+#     servicios. La usa generarDatos() para sortear la hora de inicio.
+#     El ultimo servicio empieza un minuto antes de HORA_CIERRE.
+HORA_APERTURA <- 9      # 9:00
+HORA_CIERRE   <- 17     # se muestrea hasta las 16:59
+
+# (2) Corte MAÑANA/TARDE: parte el dia en dos para la consigna 5.
+#     Lo usa prepararDatos() para construir la columna "turno".
 HORA_CORTE_TURNO <- 13  # antes de las 13:00 = manana; 13:00 o despues = tarde
 
 # --- Muestreo e inferencia -------------------------------------------

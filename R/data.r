@@ -59,7 +59,10 @@ generarDatos <- function(n = N_REGISTROS, nUsuarios = N_USUARIOS) {
   #    codificacion HH.MM de la catedra: parte entera = hora, parte decimal
   #    = minutos. Como los minutos son enteros de 0 a 59, la hora se
   #    reconstruye exacta con convertirAMinutos().
-  minutos_inicio <- 9 * 60 + sample(0:(8 * 60 - 1), n, replace = TRUE)
+  #    La ventana sale de parametros.r (HORA_APERTURA / HORA_CIERRE): si
+  #    piden cambiar la franja de muestreo, se toca SOLO ese archivo.
+  minutos_inicio <- HORA_APERTURA * 60 +
+    sample(0:((HORA_CIERRE - HORA_APERTURA) * 60 - 1), n, replace = TRUE)
   A[, 5] <- floor(minutos_inicio / 60) + (minutos_inicio %% 60) / 100
 
   # 4. Horas canceladas, en unidades de 30 minutos (1 a 8 = 30 min a 4 h).

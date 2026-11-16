@@ -30,7 +30,8 @@ Todo usa **solo R base**: no hace falta instalar ningún paquete.
 
 ```
 R/
-  parametros.r      supuestos propios: semilla, tarifa, corte de turno, nivel de confianza
+  parametros.r      supuestos propios: semilla, tarifa, franja de muestreo,
+                    corte de turno, nivel de confianza
   funciones.r       funciones reutilizables (horas, intervalos de confianza, resúmenes)
   data.r            genera o lee datos/datos.csv y prepara el data.frame MA
   01_descriptivos.R consignas 1 a 5 de la letra

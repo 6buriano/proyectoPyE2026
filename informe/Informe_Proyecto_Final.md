@@ -2,7 +2,7 @@
 title: "Uso de estacionamientos en las calles de San José"
 subtitle: "Proyecto final de Probabilidad y Estadística — UTEC 2026"
 author: "Integrantes: (completar con los nombres del grupo)"
-date: "09/11/2026"
+date: "15/11/2026"
 lang: es
 ---
 

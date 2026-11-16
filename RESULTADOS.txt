@@ -2,7 +2,7 @@
 PROYECTO FINAL DE PROBABILIDAD Y ESTADISTICA - PyE 2026
 Uso de estacionamientos en las calles de San Jose
 ========================================================================
-R 4.6.1 | 2026-11-09 15:42:10
+R 4.6.1 | 2026-11-15 22:16:14
 Se usa el archivo existente: datos/datos.csv
 Registros: 10000 | usuarios distintos: 1200 | dias habiles: 20
 
@@ -368,6 +368,15 @@ PARTE 4 - GENERACION DEL INFORME
 ========================================================================
 Informe escrito en informe/Informe_Proyecto_Final.md ( 353 lineas )
 Informe convertido a Word: informe/Informe_Proyecto_Final.docx 
+Avisos de pandoc:
+pandoc.exe: informe/Informe_Proyecto_Final.docx: withBinaryFile: permission denied (Permission denied)
+HasCallStack backtrace:
+  collectBacktraces, called at libraries\ghc-internal\src\GHC\Internal\Exception.hs:169:13 in ghc-internal:GHC.Internal.Exception
+  toExceptionWithBacktrace, called at libraries\ghc-internal\src\GHC\Internal\IO.hs:260:11 in ghc-internal:GHC.Internal.IO
+  throwIO, called at libraries\ghc-internal\src\GHC\Internal\IO\Exception.hs:315:19 in ghc-internal:GHC.Internal.IO.Exception
+  ioException, called at libraries\ghc-internal\src\GHC\Internal\IO\Exception.hs:319:20 in ghc-internal:GHC.Internal.IO.Exception
+
+
 
 ========================================================================
 FIN. Resultados en RESULTADOS.txt e informe en informe/
