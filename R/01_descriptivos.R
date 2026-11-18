@@ -208,7 +208,7 @@ subtitulo("Consigna 5: discriminado por dia de la semana y por turno (manana/tar
 
 # Tabla por dia de la semana con todas las medidas de las consignas 1 a 3
 tabla_por_dia <- do.call(rbind, lapply(1:5, function(d) {
-  sub <- MA[MA$dia_semana == d, ]
+  sub <- subset(MA, dia_semana == d)
   data.frame(
     dia_semana = DIAS_SEMANA[d],
     registros = nrow(sub),
@@ -226,7 +226,7 @@ mostrar(tabla_por_dia, dec = 3)
 
 # Tabla por turno
 tabla_por_turno <- do.call(rbind, lapply(levels(MA$turno), function(t) {
-  sub <- MA[MA$turno == t, ]
+  sub <- subset(MA, turno == t)
   data.frame(
     turno = t,
     registros = nrow(sub),
@@ -244,7 +244,7 @@ mostrar(tabla_por_turno, dec = 3)
 # Cruce turno x dia de la semana
 tabla_cruce <- do.call(rbind, lapply(levels(MA$turno), function(t) {
   do.call(rbind, lapply(1:5, function(d) {
-    sub <- MA[MA$turno == t & MA$dia_semana == d, ]
+    sub <- subset(MA, turno == t & dia_semana == d)
     data.frame(
       turno = t,
       dia_semana = DIAS_SEMANA[d],
@@ -265,3 +265,82 @@ cat("y la proporcion de multados casi no cambia entre dias (",
     pct(min(tabla_por_dia$prop_multados)), " a ",
     pct(max(tabla_por_dia$prop_multados)), "): no hay un dia especialmente problematico.\n",
     sep = "")
+
+
+# =====================================================================
+# GRAFICOS de las consignas 4 y 5
+#
+# Los datos comparables se leen mejor en un grafico que en una tabla. Cada
+# grafico se guarda en figuras/ (es el que usa el informe) y ademas se
+# dibuja en el panel Plots de RStudio cuando se corre ahi.
+# =====================================================================
+subtitulo("Graficos de las consignas 4 y 5")
+
+# --- 1. Usos por semana
+graficar("usos_por_semana", function() {
+  bp <- barplot(tabla_semanas$registros,
+                names.arg = paste("Semana", tabla_semanas$semana),
+                col = "lightsteelblue", border = "gray30",
+                main = "Usos por semana", ylab = "Registros",
+                ylim = c(0, max(tabla_semanas$registros) * 1.18))
+  text(bp, tabla_semanas$registros, labels = num(tabla_semanas$registros, 0),
+       pos = 3, cex = 0.9)
+  abline(h = mean(tabla_semanas$registros), lty = 2, col = "darkred")
+  legend("topright", lty = 2, col = "darkred", bty = "n", cex = 0.8,
+         legend = paste("promedio", num(mean(tabla_semanas$registros), 0)))
+})
+
+# --- 2. Usos promedio por dia de la semana
+graficar("usos_por_dia", function() {
+  bp <- barplot(tabla_dia_semana$usos_por_dia,
+                names.arg = tabla_dia_semana$dia_semana,
+                col = "lightsteelblue", border = "gray30",
+                main = "Usos promedio por dia de la semana",
+                ylab = "Usos por dia",
+                ylim = c(0, max(tabla_dia_semana$usos_por_dia) * 1.18))
+  text(bp, tabla_dia_semana$usos_por_dia,
+       labels = num(tabla_dia_semana$usos_por_dia, 0), pos = 3, cex = 0.9)
+})
+
+# --- 3. Proporcion de multados por dia de la semana
+graficar("multados_por_dia", function() {
+  valores <- 100 * tabla_por_dia$prop_multados
+  bp <- barplot(valores, names.arg = tabla_por_dia$dia_semana,
+                col = "navajowhite", border = "gray30",
+                main = "Multados por dia de la semana",
+                ylab = "Porcentaje de usos multados",
+                ylim = c(0, max(valores) * 1.25))
+  text(bp, valores, labels = paste0(num(valores, 2), "%"), pos = 3, cex = 0.9)
+  abline(h = 100 * mean(MA$multa), lty = 2, col = "darkred")
+  legend("topright", lty = 2, col = "darkred", bty = "n", cex = 0.8,
+         legend = paste("global", pct(mean(MA$multa))))
+})
+
+# --- 4. Distribucion de las horas canceladas por dia (boxplot comparativo)
+graficar("boxplot_por_dia", function() {
+  boxplot(horas_canceladas ~ dia_semana, data = MA, names = DIAS_SEMANA,
+          col = "lightsteelblue", border = "gray30",
+          main = "Horas canceladas por dia de la semana",
+          xlab = "Dia de la semana", ylab = "Unidades de 30 minutos (1 a 8)")
+  abline(h = mean(MA$horas_canceladas), lty = 2, col = "darkred")
+})
+
+# --- 5. Histograma contra boxplot, para elegir el grafico adecuado
+#     El histograma muestra la FORMA de la distribucion; el boxplot, la
+#     posicion de la mediana y los valores atipicos. Se muestran juntos
+#     justamente para comparar cual describe mejor estos datos.
+graficar("hist_vs_boxplot", function() {
+  op <- par(mfrow = c(1, 2))
+  hist(MA$horas_canceladas, breaks = seq(0.5, 8.5, by = 1),
+       col = "lightsteelblue", border = "gray30",
+       main = "Histograma", xlab = "Unidades de 30 min", ylab = "Frecuencia")
+  abline(v = mean(MA$horas_canceladas), col = "darkred", lwd = 2, lty = 2)
+  boxplot(MA$horas_canceladas, horizontal = TRUE, col = "lightsteelblue",
+          border = "gray30", main = "Boxplot", xlab = "Unidades de 30 min")
+  abline(v = mean(MA$horas_canceladas), col = "darkred", lwd = 2, lty = 2)
+  par(op)
+})
+
+cat("\nLectura: el boxplot es el que mejor resume estas variables, porque son\n")
+cat("discretas con cola a la derecha; el histograma muestra la forma pero cuesta\n")
+cat("comparar dias entre si, y para eso el boxplot por dia es mas claro.\n")

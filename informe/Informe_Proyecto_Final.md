@@ -2,7 +2,7 @@
 title: "Uso de estacionamientos en las calles de San José"
 subtitle: "Proyecto final de Probabilidad y Estadística — UTEC 2026"
 author: "Integrantes: (completar con los nombres del grupo)"
-date: "15/11/2026"
+date: "18/11/2026"
 lang: es
 ---
 
@@ -125,6 +125,12 @@ Por día de la semana (promedio por día concreto; cada día de la semana aparec
 | Viernes | 4 | 1.964 | 491,00 | 403,25 |
 
 
+Los mismos números, en gráfico:
+
+![Figura 1. Usos por semana, con el promedio punteado.](figuras/usos_por_semana.png)
+
+![Figura 2. Usos promedio por día de la semana.](figuras/usos_por_dia.png)
+
 ## 3.5 Consigna 5: discriminado por día de la semana y por turno
 
 Por día de la semana:
@@ -166,6 +172,21 @@ Cruce turno × día de la semana:
 | Tarde | Jueves | 1.031 | 2,803 | 1,682 | 0,345 |
 | Tarde | Viernes | 985 | 2,745 | 1,595 | 0,360 |
 
+
+En gráfico se ve de inmediato lo que la tabla dice con números: no hay un día 
+ni un turno que se despegue del resto.
+
+![Figura 3. Porcentaje de usos multados por día de la semana.](figuras/multados_por_dia.png)
+
+![Figura 4. Distribución de las horas canceladas en cada día de la semana.](figuras/boxplot_por_dia.png)
+
+Sobre qué gráfico conviene usar: las horas canceladas son una variable discreta 
+con cola hacia la derecha, así que el **boxplot** resume mejor (mediana, 
+cuartiles y atípicos) y permite comparar los cinco días en un solo panel. El 
+histograma muestra la forma, pero comparar cinco histogramas superpuestos es 
+ilegible. La figura 5 pone los dos lado a lado para justificar la elección.
+
+![Figura 5. La misma variable como histograma y como boxplot.](figuras/hist_vs_boxplot.png)
 
 ## 3.6 Consigna 6: muestreo sistemático e intervalo de confianza
 
@@ -252,9 +273,9 @@ y por el teorema central del límite se aproxima a una normal.
 discreta que toma pocos valores, así que no puede ser normal. La pregunta tiene 
 sentido sobre el total diario, no sobre el registro suelto.
 
-El histograma con la normal ajustada y el QQ-plot están en la figura 1.
+El histograma con la normal ajustada y el QQ-plot están en la figura 6.
 
-![Figura 1. Registros por dia: histograma con la normal ajustada y QQ-plot.](figuras/normalidad_totales_diarios.png)
+![Figura 6. Registros por dia: histograma con la normal ajustada y QQ-plot.](figuras/normalidad_totales_diarios.png)
 
 ## 4.6 Proporción de autos multados por ámbito
 

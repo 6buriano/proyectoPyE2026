@@ -368,3 +368,48 @@ mostrar <- function(tabla, dec = 2) {
   print(tabla_impresa, row.names = FALSE)
   invisible(tabla_impresa)
 }
+
+# ---------------------------------------------------------------------
+# 8. GRAFICOS
+# ---------------------------------------------------------------------
+
+# graficar(nombre, dibujar, ancho, alto)
+#   Que hace : dibuja un grafico DOS veces: una a un archivo PNG (que es el
+#              que usa el informe) y otra en pantalla, para que aparezca en
+#              el panel Plots de RStudio mientras se corre el proyecto.
+#   Recibe   : nombre  = nombre del archivo, sin carpeta ni extension.
+#              dibujar = una FUNCION sin argumentos que hace el plot.
+#              ancho, alto = tamano del PNG en pixeles.
+#   Devuelve : la ruta del PNG.
+#   Nota     : se le pasa una funcion y no el grafico ya hecho porque hay
+#              que volver a dibujarlo sobre el dispositivo de pantalla: los
+#              dispositivos de R no se pueden "copiar" de forma confiable
+#              entre PNG y la ventana de RStudio.
+#   Ejemplo  : graficar("mi_grafico", function() {
+#                barplot(c(3, 5, 4), main = "Ejemplo")
+#              })
+graficar <- function(nombre, dibujar, ancho = 1200, alto = 700) {
+
+  dir.create("figuras", showWarnings = FALSE)
+  archivo <- file.path("figuras", paste0(nombre, ".png"))
+
+  # 1) a archivo, que es lo que embebe el informe
+  png(archivo, width = ancho, height = alto, res = 110)
+  par(las = 1)   # etiquetas de los ejes horizontales (si no, el eje Y sale girado)
+  dibujar()
+  invisible(dev.off())
+
+  # 2) a pantalla, solo cuando se corre dentro de RStudio.
+  #    Con Rscript no hay dispositivo grafico: dibujar crearia un Rplots.pdf
+  #    suelto, asi que se saltea.
+  if (interactive()) {
+    op <- par(las = 1)
+    dibujar()
+    par(op)
+    par(mfrow = c(1, 1))   # deja el panel como estaba
+  }
+
+  cat("  [figura] ", archivo,
+      if (interactive()) "  (tambien en el panel Plots)" else "", "\n", sep = "")
+  invisible(archivo)
+}

@@ -308,20 +308,19 @@ cat("testea es el total diario, que se aproxima a una normal por el teorema cent
 cat("del limite (suma de muchos usos independientes).\n")
 
 # Graficos de normalidad de los totales diarios
-dir.create("figuras", showWarnings = FALSE)
-png("figuras/normalidad_totales_diarios.png", width = 1000, height = 520, res = 110)
-par(mfrow = c(1, 2))
-hist(totales_diarios$registros, freq = FALSE, main = "Registros por dia",
-     xlab = "Registros", ylab = "Densidad", col = "lightsteelblue")
-lines(density(totales_diarios$registros), lwd = 2, col = "darkblue")
-curve(dnorm(x, mean(totales_diarios$registros), sd(totales_diarios$registros)),
-      add = TRUE, lwd = 2, col = "darkred")
-legend("topright", lwd = 2, col = c("darkblue", "darkred"),
-       legend = c("densidad observada", "normal ajustada"), bty = "n", cex = 0.8)
-qqnorm(totales_diarios$registros, main = "QQ-plot: registros por dia")
-qqline(totales_diarios$registros, col = "darkred", lwd = 2)
-dev.off()
-cat("\nGrafico guardado en figuras/normalidad_totales_diarios.png\n")
+graficar("normalidad_totales_diarios", function() {
+  op <- par(mfrow = c(1, 2))
+  hist(totales_diarios$registros, freq = FALSE, main = "Registros por dia",
+       xlab = "Registros", ylab = "Densidad", col = "lightsteelblue")
+  lines(density(totales_diarios$registros), lwd = 2, col = "darkblue")
+  curve(dnorm(x, mean(totales_diarios$registros), sd(totales_diarios$registros)),
+        add = TRUE, lwd = 2, col = "darkred")
+  legend("topright", lwd = 2, col = c("darkblue", "darkred"),
+         legend = c("densidad observada", "normal ajustada"), bty = "n", cex = 0.8)
+  qqnorm(totales_diarios$registros, main = "QQ-plot: registros por dia")
+  qqline(totales_diarios$registros, col = "darkred", lwd = 2)
+  par(op)
+})
 
 res_p5 <- list(totales = totales_diarios,
                pruebas = list(registros = prueba_registros,

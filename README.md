@@ -21,10 +21,36 @@ Eso genera, de una sola corrida:
 |---|---|
 | `datos/datos.csv` | el archivo de 10.000 registros (se crea si no existe) |
 | `RESULTADOS.txt` | toda la salida de las 7 consignas y las 7 preguntas |
-| `figuras/` | gráficos de normalidad de la pregunta 5 |
+| `figuras/` | los 6 gráficos del informe |
 | `informe/Informe_Proyecto_Final.md` y `.docx` | el informe de la entrega |
 
 Todo usa **solo R base**: no hace falta instalar ningún paquete.
+
+## Los gráficos
+
+Los gráficos se generan con `graficar()` (está en `R/funciones.r`). Esa función
+dibuja cada gráfico **dos veces**: una a `figuras/*.png`, que es lo que embebe
+el informe, y otra en pantalla, así que al correr `R/main.r` **dentro de
+RStudio aparecen en el panel Plots**. Con `Rscript` no hay dispositivo
+gráfico, así que solo se escriben los archivos.
+
+| Gráfico | Qué muestra |
+|---|---|
+| `usos_por_semana.png` | usos en cada una de las 4 semanas, con el promedio |
+| `usos_por_dia.png` | usos promedio por día de la semana |
+| `multados_por_dia.png` | porcentaje de usos multados por día |
+| `boxplot_por_dia.png` | distribución de las horas canceladas en cada día |
+| `hist_vs_boxplot.png` | la misma variable como histograma y como boxplot, para comparar cuál describe mejor |
+| `normalidad_totales_diarios.png` | totales diarios: histograma con la normal ajustada y QQ-plot |
+
+Para agregar otro gráfico alcanza con una llamada:
+
+```r
+graficar("mi_grafico", function() {
+  barplot(c(3, 5, 4), main = "Ejemplo")
+})
+```
+
 
 ## Cómo está organizado
 

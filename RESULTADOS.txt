@@ -2,7 +2,7 @@
 PROYECTO FINAL DE PROBABILIDAD Y ESTADISTICA - PyE 2026
 Uso de estacionamientos en las calles de San Jose
 ========================================================================
-R 4.6.1 | 2026-11-15 22:16:14
+R 4.6.1 | 2026-11-18 01:33:30
 Se usa el archivo existente: datos/datos.csv
 Registros: 10000 | usuarios distintos: 1200 | dias habiles: 20
 
@@ -134,6 +134,17 @@ Cruce turno x dia de la semana:
 
 Lectura: el reparto entre manana y tarde es parejo (49,84% y 50,16%),
 y la proporcion de multados casi no cambia entre dias (35,14% a 37,17%): no hay un dia especialmente problematico.
+
+--- Graficos de las consignas 4 y 5
+  [figura] figuras/usos_por_semana.png
+  [figura] figuras/usos_por_dia.png
+  [figura] figuras/multados_por_dia.png
+  [figura] figuras/boxplot_por_dia.png
+  [figura] figuras/hist_vs_boxplot.png
+
+Lectura: el boxplot es el que mejor resume estas variables, porque son
+discretas con cola a la derecha; el histograma muestra la forma pero cuesta
+comparar dias entre si, y para eso el boxplot por dia es mas claro.
 
 ========================================================================
 PARTE 2 - INFERENCIA: MUESTREO SISTEMATICO E INTERVALOS DE CONFIANZA 
@@ -283,8 +294,7 @@ Ojo con el nivel de analisis: el registro individual (unidades por uso) es una
 variable discreta que toma pocos valores, asi que no puede ser normal. Lo que se
 testea es el total diario, que se aproxima a una normal por el teorema central
 del limite (suma de muchos usos independientes).
-
-Grafico guardado en figuras/normalidad_totales_diarios.png
+  [figura] figuras/normalidad_totales_diarios.png
 
 --- Pregunta 6: proporcion de autos multados sobre el total de usuarios
 a) Sobre los USOS (cada vez que un auto se estaciono):
@@ -366,17 +376,8 @@ proceso que genera los usos se repitiera, con la misma variabilidad.
 ========================================================================
 PARTE 4 - GENERACION DEL INFORME 
 ========================================================================
-Informe escrito en informe/Informe_Proyecto_Final.md ( 353 lineas )
+Informe escrito en informe/Informe_Proyecto_Final.md ( 374 lineas )
 Informe convertido a Word: informe/Informe_Proyecto_Final.docx 
-Avisos de pandoc:
-pandoc.exe: informe/Informe_Proyecto_Final.docx: withBinaryFile: permission denied (Permission denied)
-HasCallStack backtrace:
-  collectBacktraces, called at libraries\ghc-internal\src\GHC\Internal\Exception.hs:169:13 in ghc-internal:GHC.Internal.Exception
-  toExceptionWithBacktrace, called at libraries\ghc-internal\src\GHC\Internal\IO.hs:260:11 in ghc-internal:GHC.Internal.IO
-  throwIO, called at libraries\ghc-internal\src\GHC\Internal\IO\Exception.hs:315:19 in ghc-internal:GHC.Internal.IO.Exception
-  ioException, called at libraries\ghc-internal\src\GHC\Internal\IO\Exception.hs:319:20 in ghc-internal:GHC.Internal.IO.Exception
-
-
 
 ========================================================================
 FIN. Resultados en RESULTADOS.txt e informe en informe/
