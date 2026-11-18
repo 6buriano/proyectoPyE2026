@@ -2,7 +2,7 @@
 PROYECTO FINAL DE PROBABILIDAD Y ESTADISTICA - PyE 2026
 Uso de estacionamientos en las calles de San Jose
 ========================================================================
-R 4.6.1 | 2026-11-18 01:33:30
+R 4.6.1 | 2026-11-18 01:34:48
 Se usa el archivo existente: datos/datos.csv
 Registros: 10000 | usuarios distintos: 1200 | dias habiles: 20
 
