@@ -2,13 +2,17 @@
 PROYECTO FINAL DE PROBABILIDAD Y ESTADISTICA - PyE 2026
 Uso de estacionamientos en las calles de San Jose
 ========================================================================
-R 4.6.1 | 2026-11-18 01:34:48
-Se usa el archivo existente: datos/datos.csv
-Registros: 10000 | usuarios distintos: 1200 | dias habiles: 20
+R 4.6.1 | 2026-11-18 02:04:16
+
+Archivo de datos: datos/datos.csv
+  Registros .......................... 10000 
+  Usuarios distintos ................. 1200 
+  Dias habiles ....................... 20 
 
 Supuestos declarados (R/parametros.r):
   Semilla .......................... 2026 
   Tarifa por unidad de 30 minutos .. $ 25,00 
+  Franja de muestreo ............... 9:00 a 17:00 
   Corte de turno ................... 13:00 (manana = antes de esa hora)
   Muestreo sistematico ............. uno de cada 10 
   Nivel de confianza ............... 95% 
@@ -18,7 +22,7 @@ PARTE 1 - ESTADISTICA DESCRIPTIVA (consignas 1 a 5)
 ========================================================================
 
 --- Consigna 1: valor promedio de las horas solicitadas de uso
-Promedio de horas canceladas ....... 2,81 unidades de 30 min
+Promedio de horas solicitadas ...... 2,81 unidades de 30 min  (= columna horas_canceladas)
 Equivalente en horas ............... 1,40 horas
 Mediana ............................ 2,00 unidades
 Desvio estandar .................... 1,68 unidades
@@ -62,7 +66,7 @@ Registros por hora de inicio:
 
 --- Consigna 3: extensiones, multados y montos de las multas
 Extension promedio ................. 1,68 unidades de 30 min = 0,84 horas
-Usos multados ...................... 3562 de 10000 ( 35,62% )
+Multados por finalizacion de tiempo 3562 de 10000 ( 35,62% )  (= columna multa)
 Monto medio entre los multados ..... $ 159,63 
 Monto medio por registro (global) ..$ 56,86  <- incluye los ceros
 Recaudacion total por multas ....... $ 568.600 

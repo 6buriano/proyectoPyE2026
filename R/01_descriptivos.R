@@ -24,15 +24,17 @@ UNIDADES_POR_HORA  <- 60 / MINUTOS_POR_UNIDAD   # 2 unidades por hora
 subtitulo("Consigna 1: valor promedio de las horas solicitadas de uso")
 
 # "Horas solicitadas" = lo que el usuario paga por adelantado, o sea la
-# columna horas_canceladas. Esta expresada en unidades de 30 minutos, asi
-# que se informa en unidades y convertida a horas.
+# columna horas_canceladas. La letra la llama "horas solicitadas" en la
+# consigna 1 y "horas canceladas" en la lista de variables: es la misma
+# variable. Esta expresada en unidades de 30 minutos, asi que se informa
+# en unidades y convertida a horas.
 prom_canceladas_unidades <- mean(MA$horas_canceladas)
 prom_canceladas_horas    <- prom_canceladas_unidades / UNIDADES_POR_HORA
 mediana_canceladas       <- median(MA$horas_canceladas)
 sd_canceladas            <- sd(MA$horas_canceladas)
 
-cat("Promedio de horas canceladas .......", num(prom_canceladas_unidades),
-    "unidades de 30 min\n")
+cat("Promedio de horas solicitadas ......", num(prom_canceladas_unidades),
+    "unidades de 30 min  (= columna horas_canceladas)\n")
 cat("Equivalente en horas ...............", num(prom_canceladas_horas), "horas\n")
 cat("Mediana ............................", num(mediana_canceladas), "unidades\n")
 cat("Desvio estandar ....................", num(sd_canceladas), "unidades\n")
@@ -105,6 +107,9 @@ mostrar(tabla_horas, dec = 3)
 # =====================================================================
 subtitulo("Consigna 3: extensiones, multados y montos de las multas")
 
+# "Multados por finalizacion del tiempo prepagado" es la columna multa:
+# vale 1 si al usuario se le termino el tiempo que pago y lo multaron, y 0
+# si no. El monto de esa multa esta en valor_multa (0 en los no multados).
 prom_extension_unidades <- mean(MA$extension_horas)
 prom_extension_horas    <- prom_extension_unidades / UNIDADES_POR_HORA
 n_multados              <- sum(MA$multa)
@@ -115,8 +120,8 @@ monto_total_multas      <- sum(MA$valor_multa)
 
 cat("Extension promedio .................", num(prom_extension_unidades),
     "unidades de 30 min =", num(prom_extension_horas), "horas\n")
-cat("Usos multados ......................", n_multados, "de", nrow(MA),
-    "(", pct(prop_multados), ")\n")
+cat("Multados por finalizacion de tiempo", n_multados, "de", nrow(MA),
+    "(", pct(prop_multados), ")  (= columna multa)\n")
 cat("Monto medio entre los multados .....", pesos(monto_medio_multados), "\n")
 cat("Monto medio por registro (global) ..", pesos(monto_medio_global),
     "  <- incluye los ceros\n", sep = "")
